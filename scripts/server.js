@@ -3,23 +3,13 @@ const port = process.env.PORT || 3000;
 const express = require("express");
 const body_parser = require("body-parser");
 const path = require("path");
-const file_path = "./public/csv/file";
 const creds = require("./creds.json");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
 const dir = path.join(__dirname, "../");
 
-const json2csv = require("json2csv");
-const fs = require("fs");
-const mime = require("mime");
 const fields = ["url", "title", "tags", "date", "views"];
-const data = [];
-
-const today = new Date();
-const date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-const date_time = date + " " + time;
 
 const api_key = process.env.api_key || creds.api_key;
 const api_secret = process.env.api_secret || creds.api_secret;
@@ -33,6 +23,7 @@ app.listen(port, () => console.log("Content Tool started on port " + port));
 
 //Post to the appropriate file depending on the req.body.id value
 app.post("/server", function(req, res) {
+    const data = [];
     sailthru.apiGet("content", {
         items: 10
     },
@@ -45,7 +36,7 @@ app.post("/server", function(req, res) {
             all_content.forEach(content => {
                 const content_data = {};
                     content_data.url = content.url;
-                    content_data.date = content.date;
+                    content_data.date = content.date.replace(/,/g, " ");
                     if (content.title) {
                         content_data.title = content.title;
                     }
@@ -53,7 +44,7 @@ app.post("/server", function(req, res) {
                         content_data.title = "";
                     }
                     if (content.tags) {
-                        content_data.tags = content.tags.toString();
+                        content_data.tags = content.tags.toString().replace(/,/g, "|");
                     }
                     else {
                         content_data.tags = "";
@@ -66,21 +57,22 @@ app.post("/server", function(req, res) {
                     }
                     data.push({"url":content_data.url,"title":content_data.title, "date":content_data.date,"views":content_data.views,"tags":content_data.tags});
                 });
-                console.log(data);
-                const csv = json2csv({ data: data, fields: fields });
-                console.log(csv);
+                const csv = { data: data, fields: fields };
+                res.send(JSON.stringify(data));
+                // console.log(data);
+                // const csv = json2csv({ data: data, fields: fields });
+                // console.log(csv);
                 // const file_name = date_time + ".csv";
-                // const file = file_path + file_name;
-                // fs.writeFile(file, csv, function(err) {
-                //     if (err) {
-                //         console.log(err);
-                //     }
-                //     else {
-                //         console.log("Success!");
-                //     }
-                // });
-                // const file_location = path.join('/',file);
-                // res.download(file);
+                // // const file = file_path + file_name;
+                // // fs.writeFile(file, csv, function(err) {
+                // //     if (err) {
+                // //         console.log(err);
+                // //     }
+                // //     else {
+                // //         console.log("Success!");
+                // //     }
+                // // });
+                // res.set("Content-Disposition", "inline;filename=" + file_name);
             }
         });
 });
