@@ -25,7 +25,7 @@ app.listen(port, () => console.log("Content Tool started on port " + port));
 app.post("/server", function(req, res) {
     const data = [];
     sailthru.apiGet("content", {
-        items: 10
+        items: 1000
     },
     function(err, response) {
         if (err) {
@@ -57,22 +57,7 @@ app.post("/server", function(req, res) {
                     }
                     data.push({"url":content_data.url,"title":content_data.title, "date":content_data.date,"views":content_data.views,"tags":content_data.tags});
                 });
-                const csv = { data: data, fields: fields };
                 res.send(JSON.stringify(data));
-                // console.log(data);
-                // const csv = json2csv({ data: data, fields: fields });
-                // console.log(csv);
-                // const file_name = date_time + ".csv";
-                // // const file = file_path + file_name;
-                // // fs.writeFile(file, csv, function(err) {
-                // //     if (err) {
-                // //         console.log(err);
-                // //     }
-                // //     else {
-                // //         console.log("Success!");
-                // //     }
-                // // });
-                // res.set("Content-Disposition", "inline;filename=" + file_name);
             }
         });
 });
