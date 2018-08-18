@@ -35,29 +35,29 @@ app.post("/server", function(req, res) {
             const all_content = response.content;
             all_content.forEach(content => {
                 const content_data = {};
-                    content_data.url = content.url;
-                    content_data.date = content.date.replace(/,/g, " ");
-                    if (content.title) {
-                        content_data.title = content.title.replace(/,/g, " ");
-                    }
-                    else {
-                        content_data.title = "";
-                    }
-                    if (content.tags) {
-                        content_data.tags = content.tags.toString().replace(/,/g, "|");
-                    }
-                    else {
-                        content_data.tags = "";
-                    }
-                    if (content.views) {
-                        content_data.views = content.views;
-                    }
-                    else {
-                        content_data.views = "";
-                    }
-                    data.push({"url":content_data.url,"title":content_data.title, "date":content_data.date,"views":content_data.views,"tags":content_data.tags});
-                });
-                res.send(JSON.stringify(data));
-            }
-        });
+                content_data.url = content.url;
+                content_data.date = content.date.replace(/,/g, " ");
+                if (content.title) {
+                    content_data.title = content.title.replace(/,/g, " ");
+                }
+                else {
+                    content_data.title = "";
+                }
+                if (content.tags) {
+                    content_data.tags = content.tags.toString().replace(/,/g, "|");
+                }
+                else {
+                    content_data.tags = "";
+                }
+                if (content.views) {
+                    content_data.views = content.views;
+                }
+                else {
+                    content_data.views = 0;
+                }
+                data.push({"url":content_data.url,"title":content_data.title, "date":content_data.date,"views":content_data.views,"tags":content_data.tags});
+            });
+            res.send(JSON.stringify(data));
+        }
+    });
 });

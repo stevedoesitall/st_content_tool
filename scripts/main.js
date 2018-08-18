@@ -1,5 +1,6 @@
-import { get_id, headers, cl } from "./squery.js";
+import { get_id, headers, cl, current_month } from "./squery.js";
 
+console.log(current_month);
 const export_btn =  get_id("export");
 const today = new Date();
 const date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
