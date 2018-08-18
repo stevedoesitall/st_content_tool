@@ -4,6 +4,7 @@ const express = require("express");
 const body_parser = require("body-parser");
 const path = require("path");
 const file_path = "./public/csv/file";
+const creds = require("./creds.json");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
@@ -20,8 +21,8 @@ const date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.ge
 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 const date_time = date + " " + time;
 
-const api_key = process.env.api_key;
-const api_secret = process.env.api_secret;
+const api_key = process.env.api_key || creds.api_key;
+const api_secret = process.env.api_secret || creds.api_secret;
 
 const sailthru = require("sailthru-client").createSailthruClient(api_key, api_secret);
 
@@ -68,18 +69,18 @@ app.post("/server", function(req, res) {
                 console.log(data);
                 const csv = json2csv({ data: data, fields: fields });
                 console.log(csv);
-                const file_name = date_time + ".csv";
-                const file = file_path + file_name;
-                fs.writeFile(file, csv, function(err) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        console.log("Success!");
-                    }
-                });
+                // const file_name = date_time + ".csv";
+                // const file = file_path + file_name;
+                // fs.writeFile(file, csv, function(err) {
+                //     if (err) {
+                //         console.log(err);
+                //     }
+                //     else {
+                //         console.log("Success!");
+                //     }
+                // });
                 // const file_location = path.join('/',file);
-                res.download(file);
+                // res.download(file);
             }
         });
 });
