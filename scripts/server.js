@@ -38,7 +38,7 @@ app.post("/server", function(req, res) {
                     content_data.url = content.url;
                     content_data.date = content.date.replace(/,/g, " ");
                     if (content.title) {
-                        content_data.title = content.title;
+                        content_data.title = content.title.replace(/,/g, " ");
                     }
                     else {
                         content_data.title = "";
