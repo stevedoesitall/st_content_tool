@@ -4,29 +4,10 @@ body {
     color: #FFFFFF;
 }
 
-button {
-    border-style: solid;
-    font-size: 1em;
-    width: 8em;
-    padding: 2em;
-    border-color: #FFFFFF;
-    color: #FFFFFF;
-    background-color: #00CCED;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: .5em;
-}
-
-button:hover {
-    border-color: #00CCED;
-    color: #00CCED;
-    background-color: #FFFFFF;
-}
-
 div {
     text-align: center;
 }
 
-#export_url, #loaded_file {
-    display: none;
+#export_url {
+    visibility: none;
 }
