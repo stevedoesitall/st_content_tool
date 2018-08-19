@@ -1,8 +1,7 @@
-import { get_id, headers, cl } from "./squery.js";
+import { get_id, headers, cl, date } from "./squery.js";
 
+console.log(date);
 const export_btn =  get_id("export");
-const today = new Date();
-const date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 export_btn.addEventListener("click",
     function download() {
@@ -28,11 +27,11 @@ export_btn.addEventListener("click",
             result += line_delimiter;
 
             resp_data.forEach(function(item) {
-                let ctr = 0;
+                let x = 0;
                 keys.forEach(function(key) {
-                    if (ctr > 0) result += column_delimiter;
+                    if (x > 0) result += column_delimiter;
                     result += item[key];
-                    ctr++;
+                    x++;
                 });
                 result += line_delimiter;
             });
@@ -41,11 +40,10 @@ export_btn.addEventListener("click",
             const file = encodeURI(csv);
             const file_name = "Content Export " + date + ".csv";
             const hidden_dl = get_id('export_url');
-            hidden_dl.setAttribute("href", file);
-            hidden_dl.setAttribute("download", file_name);
-            hidden_dl.click();
-        }
-    )
+                hidden_dl.setAttribute("href", file);
+                hidden_dl.setAttribute("download", file_name);
+                hidden_dl.click();
+        })
     })
     .catch(error => cl(error) );
 })
