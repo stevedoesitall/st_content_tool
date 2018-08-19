@@ -47,3 +47,62 @@ export_btn.addEventListener("click",
     })
     .catch(error => cl(error) );
 })
+
+
+//const csv is the CSV file with headers
+// import_btn.addEventListener("click",
+//     function csv_to_json() {
+//         const result = [];
+
+//         loaded_file.click();
+//         loaded_file.addEventListener("change", 
+//             function load_file() {
+//                 const file = get_id("loaded_file").files[0];
+//                 const reader = new FileReader();
+//                 reader.onload = function(event) {
+//                     const csv = event.target.result;
+//                     const lines = csv.split("\n");
+                    
+//                     const headers = lines[0].split(",");
+
+//                     let obj;
+//                     let current_line;
+                  
+//                     for(let i = 1; i < lines.length; i++) {
+                  
+//                         obj = {};
+//                         current_line = lines[i].split(",");
+//                         cl(current_line)
+                  
+//                         for(let x = 0; x < headers.length; x++){
+//                             obj[headers[x]] = current_line[x];
+//                         }
+                  
+//                         result.push(obj);
+                  
+//                     }
+//                     return result; //JavaScript object
+//                 }
+
+//                 reader.readAsText(file);
+//             }
+//         )
+//         console.log(result)
+//         fetch("/server", {
+//             method: "post",
+//             headers: headers,
+//             data: {data: result}
+//         })
+//         .then(
+//             function(response) {
+//                 if (response.status != 200) {
+//                     cl("Error: " + response.status);
+//                     return;
+//                 }
+//             response.json().then(
+//                 function(resp_data) {
+//                 cl(resp_data);
+//             })
+//         })
+//     }
+// )

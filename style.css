@@ -27,6 +27,11 @@ div {
     text-align: center;
 }
 
+li {
+    list-style-position: inside;
+    padding-bottom: 1em;
+}
+
 #export_url {
     visibility: none;
 }
