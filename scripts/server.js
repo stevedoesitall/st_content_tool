@@ -3,7 +3,7 @@ const port = process.env.PORT || 3000;
 const express = require("express");
 const body_parser = require("body-parser");
 const path = require("path");
-// const creds = require("./creds.json");
+const creds = require("./creds.json");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
@@ -23,41 +23,46 @@ app.listen(port, () => console.log("Content Tool started on port " + port));
 
 //Post to the appropriate file depending on the req.body.id value
 app.post("/server", function(req, res) {
-    const data = [];
-    sailthru.apiGet("content", {
-        items: 1000
-    },
-    function(err, response) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            const all_content = response.content;
-            all_content.forEach(content => {
-                const content_data = {};
-                content_data.url = content.url;
-                content_data.date = content.date.replace(/,/g, " ");
-                if (content.title) {
-                    content_data.title = content.title.replace(/,/g, " ");
-                }
-                else {
-                    content_data.title = "";
-                }
-                if (content.tags) {
-                    content_data.tags = content.tags.toString().replace(/,/g, "|");
-                }
-                else {
-                    content_data.tags = "";
-                }
-                if (content.views) {
-                    content_data.views = content.views;
-                }
-                else {
-                    content_data.views = 0;
-                }
-                data.push({"url":content_data.url,"title":content_data.title, "date":content_data.date,"views":content_data.views,"tags":content_data.tags});
-            });
-            res.send(JSON.stringify(data));
-        }
-    });
+    if (req.body.id == "save") {
+        console.log(req);
+    }
+    else {
+        const data = [];
+        sailthru.apiGet("content", {
+            items: 1000
+        },
+        function(err, response) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                const all_content = response.content;
+                all_content.forEach(content => {
+                    const content_data = {};
+                    content_data.url = content.url;
+                    content_data.date = content.date.replace(/,/g, " ");
+                    if (content.title) {
+                        content_data.title = content.title.replace(/,/g, " ");
+                    }
+                    else {
+                        content_data.title = "";
+                    }
+                    if (content.tags) {
+                        content_data.tags = content.tags.toString().replace(/,/g, "|");
+                    }
+                    else {
+                        content_data.tags = "";
+                    }
+                    if (content.views) {
+                        content_data.views = content.views;
+                    }
+                    else {
+                        content_data.views = 0;
+                    }
+                    data.push({"url":content_data.url,"title":content_data.title, "date":content_data.date,"views":content_data.views,"tags":content_data.tags});
+                });
+                res.send(JSON.stringify(data));
+            }
+        });
+    }
 });

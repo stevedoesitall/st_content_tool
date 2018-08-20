@@ -115,10 +115,6 @@ switch(day_ph)  {
     day_string = "09";
 }
 
-if (month_string == "") {
-    month_string = month_ph;
-}
-
 if (day_string == "") {
     day_string = day_ph;
 }
