@@ -32,6 +32,6 @@ li {
     padding-bottom: 1em;
 }
 
-#export_url {
-    visibility: none;
+#hidden {
+    display: none;
 }

@@ -1,6 +1,7 @@
 import { get_id, headers, cl, date } from "./squery.js";
 
 console.log(date);
+const import_btn =  get_id("import");
 const export_btn =  get_id("export");
 
 export_btn.addEventListener("click",
