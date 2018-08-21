@@ -1,4 +1,4 @@
-import { get_id, headers, cl, date, string } from "./squery.js";
+import { get_id, headers, cl, date, string } from "./ditko.js";
 
 function secure() {
     if (window.location.href.substr(0,5) != "https") {
