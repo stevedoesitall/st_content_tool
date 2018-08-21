@@ -1,7 +1,7 @@
 import { get_id, headers, cl, date, string } from "./ditko.js";
 
 function secure() {
-    if (window.location.href.substr(0,5) != "https") {
+    if (window.location.href.substr(0,5) != "https" && window.location.href.indexOf("http://localhost:") == -1) {
         window.location.href = "https://st-content-manager.herokuapp.com/";
     }
 };
@@ -61,9 +61,9 @@ export_btn.addEventListener("click",
 //const csv is the CSV file with headers
 import_btn.addEventListener("click",
     function csv_to_json() {
-        alert("Nothing yet...");
-        import_btn.disabled = true;
-        return false;
+        // alert("Nothing yet...");
+        // import_btn.disabled = true;
+        // return false;
         const result = [];
         loaded_file.click();
         loaded_file.addEventListener("change", 
@@ -80,35 +80,38 @@ import_btn.addEventListener("click",
                     let obj;
                     let current_line;
                 
-                    for(let i = 1; i < lines.length; i++) {
-                
+                    for (let i = 1; i < lines.length - 1; i++) {
                         obj = {};
                         current_line = lines[i].split(",");                  
-                        for(let x = 0; x < headers.length; x++){
+                        for (let x = 0; x < headers.length; x++){
                             obj[headers[x]] = current_line[x];
                         }
                         result.push(obj);
                     }
-                    return result; //JavaScript object
+                    // console.log(result);
+                    // return result;
                 }
                 reader.readAsText(file);
+                setTimeout(function() {
+                    console.log(result);
+                    fetch("/server", {
+                        method: "post",
+                        headers: headers,
+                        body: string({id: "import", data: result})
+                    })
+                    .then(
+                        function(response) {
+                            if (response.status != 200) {
+                                cl("Error: " + response.status);
+                                return;
+                            }
+                        response.json().then(
+                            function(resp_data) {
+                            cl("Data", resp_data);
+                        })
+                    })
+                }, 1000);
             }
-        })
-        fetch("/server", {
-            method: "post",
-            headers: headers,
-            data: string({id: "send", data: result})
-        })
-        .then(
-            function(response) {
-                if (response.status != 200) {
-                    cl("Error: " + response.status);
-                    return;
-                }
-            response.json().then(
-                function(resp_data) {
-                cl("Data", resp_data);
-            })
         })
     }
 )

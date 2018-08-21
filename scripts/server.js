@@ -3,7 +3,7 @@ const port = process.env.PORT || 3000;
 const express = require("express");
 const body_parser = require("body-parser");
 const path = require("path");
-// const creds = require("./creds.json");
+const creds = require("./creds.json");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
@@ -23,8 +23,8 @@ app.listen(port, () => console.log("Content Tool started on port " + port));
 
 //Post to the appropriate file depending on the req.body.id value
 app.post("/server", function(req, res) {
-    if (req.body.id == "save") {
-        console.log(req);
+    if (req.body.id == "import") {
+        console.log(req.body.data, typeof req.body.data);
     }
     else {
         const data = [];
