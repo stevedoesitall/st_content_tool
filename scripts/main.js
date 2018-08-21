@@ -6,7 +6,7 @@ function secure() {
     }
 };
 
-window.onload() = secure();
+window.onload = secure();
 
 console.log(date);
 const import_btn =  get_id("import");
