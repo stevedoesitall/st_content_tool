@@ -24,7 +24,22 @@ app.listen(port, () => console.log("Content Tool started on port " + port));
 //Post to the appropriate file depending on the req.body.id value
 app.post("/server", function(req, res) {
     if (req.body.id == "import") {
-        console.log(req.body.data, typeof req.body.data);
+        const all_content = req.body.data;
+        const test_content = all_content.slice(0,3);
+        console.log(test_content);
+        test_content.forEach(content => {
+            content.tags = content.tags.replace(/\|/g, ",");
+            sailthru.apiPost("content", 
+                content,
+            function(err, response) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(response);
+                }
+            });
+        })
     }
     else {
         const data = [];
