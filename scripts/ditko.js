@@ -37,97 +37,27 @@ const month_ph = new Date().getMonth() + 1;
 
 const day_ph = new Date().getDate();
 
-let month_string = "";
+let month_val;
 
-let day_string = "";
+let day_val;
 
-switch(month_ph)  {
-    case 1: 
-        month_string = "01";
-    break;
-
-    case 2: 
-        month_string = "02";
-    break;
-
-    case 3: 
-        month_string = "03";
-    break;
-
-    case 4: 
-        month_string = "04";
-    break;
-
-    case 5: 
-        month_string = "05";
-    break;
-
-    case 6: 
-        month_string = "06";
-    break;
-
-    case 7: 
-        month_string = "07";
-    break;
-
-    case 8: 
-        month_string = "08";
-    break;
-
-    case 9: 
-        month_string = "09";
-    break;
+if (month_ph < 10) {
+    month_val = "0" + month_ph;
+}
+else {
+    month_val = month_ph;
 }
 
-if (month_string == "") {
-    month_string = month_ph;
+if (day_ph < 10) {
+    day_val = "0" + day_ph;
+}
+else {
+    day_val = day_ph;
 }
 
-switch(day_ph)  {
-    case 1: 
-        day_string = "01";
-    break;
+export const month = month_val;
 
-    case 2: 
-        day_string = "02";
-    break;
-
-    case 3: 
-        day_string = "03";
-    break;
-
-    case 4: 
-        day_string = "04";
-    break;
-
-    case 5: 
-        day_string = "05";
-    break;
-
-    case 6: 
-        day_string = "06";
-    break;
-
-    case 7: 
-        day_string = "07";
-    break;
-
-    case 8: 
-        day_string = "08";
-    break;
-
-    case 9: 
-        day_string = "09";
-    break;
-}
-
-if (day_string == "") {
-    day_string = day_ph;
-}
-
-export const month = month_string;
-
-export const day = day_string;
+export const day = day_val;
 
 export const date = year + "-" + month + "-" + day;
 
