@@ -1,5 +1,6 @@
 import { get_id, headers, cl, date, string } from "./ditko.js";
 
+//Force the site to load in HTTPS
 function secure() {
     if (window.location.href.substr(0,5) != "https" && window.location.href.indexOf("http://localhost:") == -1) {
         window.location.href = "https://st-content-manager.herokuapp.com/";
@@ -8,7 +9,6 @@ function secure() {
 
 window.onload = secure();
 
-console.log(date);
 const import_btn =  get_id("import");
 const export_btn =  get_id("export");
 
