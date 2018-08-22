@@ -9,8 +9,8 @@ function secure() {
 
 window.onload = secure();
 
-const import_btn =  get_id("import");
-const export_btn =  get_id("export");
+const import_btn = get_id("import");
+const export_btn = get_id("export");
 
 export_btn.addEventListener("click",
     function download() {
