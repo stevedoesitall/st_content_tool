@@ -1,4 +1,4 @@
-import { get_id, headers, cl, date, string } from "./ditko.js";
+import { get_id, headers, cl, date, string } from "https://rawgit.com/stevedoesitall/ditkojs/master/ditko.js";
 
 //Force the site to load in HTTPS
 function secure() {
