@@ -73,18 +73,20 @@ import_btn.addEventListener("click",
                     const reader = new FileReader();
                     reader.onload = function(event) {
                     const csv = event.target.result;
+                        // cl(csv);
                     const lines = csv.split("\n");
-                    
+                        const test_data = lines[1].split(",");
+                        cl(`Line data: ${lines.length}, ${test_data}`);
                     const headers = lines[0].split(",");
-
+                        // cl(headers);
                     let obj;
                     let current_line;
                 
-                    for (let i = 1; i < lines.length - 1; i++) {
+                    for (let line_num = 1; line_num <= lines.length - 1; line_num++) {
                         obj = {};
-                        current_line = lines[i].split(",");                  
-                        for (let x = 0; x < headers.length; x++){
-                            obj[headers[x]] = current_line[x];
+                        current_line = lines[line_num].split(",");       
+                        for (let head_num = 0; head_num < headers.length; head_num++) {
+                            obj[headers[head_num].replace(/(\r\n|\n|\r)/gm,"")] = current_line[head_num];
                         }
                         result.push(obj);
                     }
@@ -110,6 +112,7 @@ import_btn.addEventListener("click",
                             cl("Data", resp_data);
                         })
                     })
+                    location.reload();
                 }, 1000);
             }
         })

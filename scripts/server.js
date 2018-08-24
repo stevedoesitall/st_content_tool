@@ -9,8 +9,6 @@ const app = express();
 const server = http.createServer(app);
 const dir = path.join(__dirname, "../");
 
-const fields = ["url", "title", "tags", "date", "views"];
-
 const api_key = process.env.api_key || creds.api_key;
 const api_secret = process.env.api_secret || creds.api_secret;
 
@@ -25,10 +23,35 @@ app.listen(port, () => console.log("Content Tool started on port " + port));
 app.post("/server", function(req, res) {
     if (req.body.id == "import") {
         const all_content = req.body.data;
-        const test_content = all_content.slice(0,3);
-        console.log(test_content);
-        test_content.forEach(content => {
-            content.tags = content.tags.replace(/\|/g, ",");
+        all_content.forEach(content => {
+            if (content.tags) {
+            content.tags = content.tags.split(",");
+                console.log(content.tags);
+                content.tags.forEach(tag => {
+                    if (tag.indexOf("|") != -1) {
+                        tag = tag.replace(/\|/g, ",");
+                        tag = tag.replace(" ", "");
+                        console.log(tag);
+                        content.tags = tag.split(",");
+                    }
+                    else {
+                        console.log("Single tag.");
+                    }
+                })
+            }
+
+            if (content.inventory) {
+                content.inventory = parseInt(content.inventory);
+            }
+
+            else {
+                delete content.inventory;
+            }
+
+            if (content.price) {
+                content.price = parseInt(content.price);
+            }
+
             sailthru.apiPost("content", 
                 content,
             function(err, response) {
@@ -57,7 +80,7 @@ app.post("/server", function(req, res) {
                     content_data.url = content.url;
                     content_data.date = content.date.replace(/,/g, " ");
                     if (content.title) {
-                        content_data.title = content.title.replace(/,/g, " ");
+                        content_data.title = content.title.replace(/,/g, " - ");
                     }
                     else {
                         content_data.title = "";
