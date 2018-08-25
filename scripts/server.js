@@ -3,7 +3,7 @@ const port = process.env.PORT || 3000;
 const express = require("express");
 const body_parser = require("body-parser");
 const path = require("path");
-const creds = require("./creds.json");
+// const creds = require("./creds.json");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
@@ -50,7 +50,7 @@ app.post("/server", function(req, res) {
             else {
                 delete content.inventory;
             }
-            
+
             //Currently doesn't work:
             // if (content.location) {
             //     content.location = content.location.split(",");
