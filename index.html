@@ -5,22 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Content Tool</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="kirby.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <link rel="shortcut icon" href="https://getstarted.sailthru.com/wp-content/themes/sailthru-docs/img/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
     <div id="header">
         <h1>Sailthru Content Tool</h1>
-        <h2>Import and Export Your Content!</h2>
-        <button id="import">Import</button>
-        <button id="export">Export</button>
+        <h2>Manage Your Content:</h2>
+        <button class="post" id="import">Import</button>
+        <button class="get" id="export">Export</button>
+        <button class="post" id="delete">Delete</button>
     </div>
     <div id="notes">
         <h3>Notes:</h3>
             <ol>
                 <li>Exported data includes URL, title, publish date, views, and tags</li>
-                <li>For content imports, replace all commas with pipes (for tags) or dashes/hyphens (for titles, descriptions, etc.)</li>
+                <li>For content imports, replace all commas with pipes (for tags and location) or dashes/hyphens (for titles, descriptions, etc.)</li>
+                <li>To upload thumbnail or full-sized images, name the column headers "thumb" and "full"</li>
+                <li>Import and export of vars currently unsupported</li>
             </ol>
     </div>
     <div id="hidden">

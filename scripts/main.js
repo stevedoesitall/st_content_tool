@@ -9,14 +9,14 @@ function secure() {
 
 window.onload = secure();
 
-const import_btn = get_id("import");
 const export_btn = get_id("export");
-
+const id = "export";
 export_btn.addEventListener("click",
     function download() {
     fetch("/server", {
         method: "post",
-        headers: headers
+        headers: headers,
+        body: string({id: id})
     })
     .then(
     function(response) {
@@ -55,22 +55,22 @@ export_btn.addEventListener("click",
         })
     })
     .catch(error => cl(error) );
-})
+});
 
 
 //const csv is the CSV file with headers
-import_btn.addEventListener("click",
-    function csv_to_json() {
-        // alert("Nothing yet...");
-        // import_btn.disabled = true;
-        // return false;
+document.addEventListener("click", function csv_to_json() {
+    if (event.target.classList.contains("post")) {
+        const id = event.target.id;
+    // alert("Nothing yet...");
+    // import_btn.disabled = true;
+    // return false;
         const result = [];
         loaded_file.click();
-        loaded_file.addEventListener("change", 
-            function load_file() {
-                const file = get_id("loaded_file").files[0];
-                if (file) {
-                    const reader = new FileReader();
+        loaded_file.addEventListener("change", function load_file() {
+        const file = get_id("loaded_file").files[0];
+            if (file) {
+                const reader = new FileReader();
                     reader.onload = function(event) {
                     const csv = event.target.result;
                         // cl(csv);
@@ -93,13 +93,13 @@ import_btn.addEventListener("click",
                     // console.log(result);
                     // return result;
                 }
-                reader.readAsText(file);
+            reader.readAsText(file);
                 setTimeout(function() {
                     console.log(result);
                     fetch("/server", {
                         method: "post",
                         headers: headers,
-                        body: string({id: "import", data: result})
+                        body: string({id: id, data: result})
                     })
                     .then(
                         function(response) {
@@ -110,11 +110,11 @@ import_btn.addEventListener("click",
                         response.json().then(
                             function(resp_data) {
                             cl("Data", resp_data);
-                        })
-                    })
+                        });
+                    });
                     location.reload();
                 }, 1000);
             }
-        })
+        });
     }
-)
+});

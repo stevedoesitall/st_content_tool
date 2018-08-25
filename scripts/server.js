@@ -3,7 +3,7 @@ const port = process.env.PORT || 3000;
 const express = require("express");
 const body_parser = require("body-parser");
 const path = require("path");
-// const creds = require("./creds.json");
+const creds = require("./creds.json");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
@@ -42,14 +42,50 @@ app.post("/server", function(req, res) {
 
             if (content.inventory) {
                 content.inventory = parseInt(content.inventory);
+                if (content.inventory == NaN) {
+                    delete content.inventory;
+                }
             }
 
             else {
                 delete content.inventory;
             }
+            
+            //Currently doesn't work:
+            // if (content.location) {
+            //     content.location = content.location.split(",");
+            //         content.location.forEach(location => {
+            //             if (location.indexOf("|") != -1) {
+            //                 location = location.replace(/\|/g, ",");
+            //                 location = location.replace(" ", "");
+            //                 content.location = location.split(",");
+            //             }
+            //             else {
+            //                 delete content.location;
+            //             }
+            //         })
+            //     }
+
+            // else {
+            //     delete content.location;
+            // }
 
             if (content.price) {
                 content.price = parseInt(content.price);
+            }
+
+            if (content.thumb || content.full) {
+                content.images = {};
+                if (content.full) {
+                    content.images.full = {};
+                        content.images.full.url = content.full;
+                        delete content.full;
+                }
+                if (content.thumb) {
+                    content.images.thumb = {};
+                        content.images.thumb.url = content.thumb;
+                        delete content.thumb;
+                }
             }
 
             sailthru.apiPost("content", 
@@ -64,7 +100,23 @@ app.post("/server", function(req, res) {
             });
         })
     }
-    else {
+    else if (req.body.id == "delete") {
+        const all_content = req.body.data;
+        all_content.forEach(content => {
+            sailthru.apiDelete("content", {
+                url: content.url
+            },
+            function(err, response) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(response);
+                }
+            });
+        })
+    }
+    else if (req.body.id == "export") {
         const data = [];
         sailthru.apiGet("content", {
             items: 1000
