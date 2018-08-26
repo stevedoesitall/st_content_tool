@@ -10,13 +10,41 @@ function secure() {
 window.onload = secure();
 
 const export_btn = get_id("export");
+const notes_btn = get_id("notes");
+const notes_section = get_id("notes_list");
+
+notes_btn.addEventListener("click", 
+    function show_notes() {
+        if (notes_section.classList.contains("hidden")) {
+            notes_section.classList.remove("hidden");
+            notes_btn.innerHTML = "Hide";
+        }
+        else {
+            notes_section.setAttribute("class", "hidden");
+            notes_btn.innerHTML = "Notes";
+        }
+    }
+);
 
 export_btn.addEventListener("click",
     function download() {
         const id = "export";
         const creds = {};
-            creds.api_key = get_id("api_key").value;
-            creds.api_secret = get_id("api_secret").value;
+            const api_key = get_id("api_key");
+            const api_secret = get_id("api_secret");
+
+            creds.api_key = api_key.value;
+            creds.api_secret = api_secret.value;
+            if (!creds.api_key) {
+                alert("Please enter an API key value.");
+                api_key.setAttribute("class", "error");
+                return false;
+            }
+            if (!creds.api_secrey) {
+                alert("Please enter an API secret value.");
+                api_secret.setAttribute("class", "error");
+                return false;
+            }
     fetch("/server", {
         method: "post",
         headers: headers,
@@ -124,11 +152,16 @@ document.addEventListener("click", function csv_to_json() {
                                     alert("Invalid API credentials.");
                                     return false;
                                 }
-                            cl("Data", resp_data);
+                            if (id == "delete") {
+                                alert(`${resp_data.success_count} items deleted.`);
+                            }
+                            else if (id == "import") {
+                                alert(`${resp_data.success_count} items imported.`);
+                            }
                         });
                     });
                     location.reload();
-                }, 1000);
+                }, 2000);
             }
         });
     }

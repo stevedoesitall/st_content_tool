@@ -5,22 +5,9 @@ body {
 }
 
 button {
-    border-style: solid;
-    font-size: 1em;
-    width: 8em;
-    padding: 2em;
-    border-color: #FFFFFF;
-    color: #FFFFFF;
-    background-color: #00CCED;
-    font-weight: bold;
     cursor: pointer;
-    margin-left: .5em;
-}
-
-button:hover {
-    border-color: #00CCED;
-    color: #00CCED;
-    background-color: #FFFFFF;
+    font-weight: bold;
+    color: #FFFFFF;
 }
 
 div {
@@ -37,6 +24,43 @@ li {
     padding-bottom: 1em;
 }
 
-#hidden {
+.api {
+    border-style: solid;
+    font-size: 1em;
+    width: 8em;
+    padding: 2em;
+    border-color: #FFFFFF;
+    background-color: #00CCED;
+    margin-left: .5em;
+}
+
+.api:hover {
+    border-color: #00CCED;
+    color: #00CCED;
+    background-color: #FFFFFF;
+}
+
+.error {
+    border-color: #FF0000;
+}
+
+.hidden {
     display: none;
+}
+
+#notes {
+    display: block;
+    margin: auto;
+    margin-top: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-style: solid;
+    background-color: #FFA500;
+}
+
+#notes:hover {
+    background-color: #FFFFFF;
+    color: #FFA500;
 }

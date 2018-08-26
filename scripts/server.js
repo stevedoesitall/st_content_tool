@@ -25,6 +25,7 @@ app.post("/server", function(req, res) {
 
     if (req.body.id == "import") {
         const all_content = req.body.data;
+        let success_count = 0;
         all_content.forEach(content => {
             if (content.tags) {
             content.tags = content.tags.split(",");
@@ -35,9 +36,6 @@ app.post("/server", function(req, res) {
                         tag = tag.replace(" ", "");
                         console.log(tag);
                         content.tags = tag.split(",");
-                    }
-                    else {
-                        console.log("Single tag.");
                     }
                 })
             }
@@ -99,13 +97,18 @@ app.post("/server", function(req, res) {
                     console.log(err);
                 }
                 else {
+                    success_count = success_count + 1;
                     console.log(response);
                 }
             });
-        })
+        });
+        setTimeout(function() {
+            res.send(JSON.stringify({"success_count": success_count}));
+        }, 100);
     }
     else if (req.body.id == "delete") {
         const all_content = req.body.data;
+        let success_count = 0;
         all_content.forEach(content => {
             sailthru.apiDelete("content", {
                 url: content.url
@@ -116,9 +119,13 @@ app.post("/server", function(req, res) {
                 }
                 else {
                     console.log(response);
+                    success_count = success_count + 1;
                 }
             });
-        })
+        });
+        setTimeout(function() {
+            res.send(JSON.stringify({"success_count": success_count}));
+        }, 100);
     }
     else if (req.body.id == "export") {
         const data = [];
