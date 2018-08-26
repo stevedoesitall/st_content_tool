@@ -9,10 +9,8 @@ const app = express();
 const server = http.createServer(app);
 const dir = path.join(__dirname, "../");
 
-const api_key = process.env.api_key || creds.api_key;
-const api_secret = process.env.api_secret || creds.api_secret;
-
-const sailthru = require("sailthru-client").createSailthruClient(api_key, api_secret);
+// const api_key = process.env.api_key || creds.api_key;
+// const api_secret = process.env.api_secret || creds.api_secret;
 
 app.use(express.static(dir));
 app.use(body_parser.urlencoded({ extended: false }));
@@ -21,6 +19,10 @@ app.listen(port, () => console.log("Content Tool started on port " + port));
 
 //Post to the appropriate file depending on the req.body.id value
 app.post("/server", function(req, res) {
+    const api_key = req.body.creds.api_key;
+    const api_secret = req.body.creds.api_secret;
+    const sailthru = require("sailthru-client").createSailthruClient(api_key, api_secret);
+
     if (req.body.id == "import") {
         const all_content = req.body.data;
         all_content.forEach(content => {
@@ -51,24 +53,26 @@ app.post("/server", function(req, res) {
                 delete content.inventory;
             }
 
-            //Currently doesn't work:
-            // if (content.location) {
-            //     content.location = content.location.split(",");
-            //         content.location.forEach(location => {
-            //             if (location.indexOf("|") != -1) {
-            //                 location = location.replace(/\|/g, ",");
-            //                 location = location.replace(" ", "");
-            //                 content.location = location.split(",");
-            //             }
-            //             else {
-            //                 delete content.location;
-            //             }
-            //         })
-            //     }
+            if (content.location) {
+                content.location = content.location.split(",");
+                    content.location.forEach(location => {
+                        if (location.indexOf("|") != -1) {
+                            location = location.replace(/\|/g, ",");
+                            location = location.replace(" ", "");
+                            content.location = location.split(",");
+                            if (content.location.length > 2) {
+                                delete content.location;
+                            }
+                        }
+                        else {
+                            delete content.location;
+                        }
+                    })
+                }
 
-            // else {
-            //     delete content.location;
-            // }
+            else {
+                delete content.location;
+            }
 
             if (content.price) {
                 content.price = parseInt(content.price);
@@ -124,6 +128,7 @@ app.post("/server", function(req, res) {
         function(err, response) {
             if (err) {
                 console.log(err);
+                res.send(err);
             }
             else {
                 const all_content = response.content;

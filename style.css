@@ -27,6 +27,11 @@ div {
     text-align: center;
 }
 
+label {
+    display: block;
+    margin: 1em;
+}
+
 li {
     list-style-position: inside;
     padding-bottom: 1em;

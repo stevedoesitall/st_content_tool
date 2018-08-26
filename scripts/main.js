@@ -10,13 +10,17 @@ function secure() {
 window.onload = secure();
 
 const export_btn = get_id("export");
-const id = "export";
+
 export_btn.addEventListener("click",
     function download() {
+        const id = "export";
+        const creds = {};
+            creds.api_key = get_id("api_key").value;
+            creds.api_secret = get_id("api_secret").value;
     fetch("/server", {
         method: "post",
         headers: headers,
-        body: string({id: id})
+        body: string({id: id, creds: creds})
     })
     .then(
     function(response) {
@@ -26,6 +30,10 @@ export_btn.addEventListener("click",
     }
     response.json().then(
         function json_to_csv(resp_data) {
+            if (resp_data.statusCode == 401) {
+                alert("Invalid API credentials.");
+                return false;
+            }
             const column_delimiter = ",";
             const line_delimiter = "\n";
             const keys = Object.keys(resp_data[0]);
@@ -60,6 +68,9 @@ export_btn.addEventListener("click",
 
 //const csv is the CSV file with headers
 document.addEventListener("click", function csv_to_json() {
+    const creds = {};
+        creds.api_key = get_id("api_key").value;
+        creds.api_secret = get_id("api_secret").value;
     if (event.target.classList.contains("post")) {
         const id = event.target.id;
     // alert("Nothing yet...");
@@ -99,7 +110,7 @@ document.addEventListener("click", function csv_to_json() {
                     fetch("/server", {
                         method: "post",
                         headers: headers,
-                        body: string({id: id, data: result})
+                        body: string({id: id, data: result, creds: creds})
                     })
                     .then(
                         function(response) {
@@ -109,6 +120,10 @@ document.addEventListener("click", function csv_to_json() {
                             }
                         response.json().then(
                             function(resp_data) {
+                                if (resp_data.statusCode == 401) {
+                                    alert("Invalid API credentials.");
+                                    return false;
+                                }
                             cl("Data", resp_data);
                         });
                     });
