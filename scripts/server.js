@@ -102,13 +102,11 @@ app.post("/server", function(req, res) {
                 }
             });
         });
-        setTimeout(function() {
-            res.send(JSON.stringify({"success_count": success_count}));
-        }, 100);
+        res.send(JSON.stringify({"success_count": success_count}));
     }
     else if (req.body.id == "delete") {
-        const all_content = req.body.data;
         let success_count = 0;
+        const all_content = req.body.data;
         all_content.forEach(content => {
             sailthru.apiDelete("content", {
                 url: content.url
@@ -123,9 +121,7 @@ app.post("/server", function(req, res) {
                 }
             });
         });
-        setTimeout(function() {
-            res.send(JSON.stringify({"success_count": success_count}));
-        }, 100);
+        res.send(JSON.stringify({"success_count": success_count}));
     }
     else if (req.body.id == "export") {
         const data = [];

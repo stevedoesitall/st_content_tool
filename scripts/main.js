@@ -152,16 +152,17 @@ document.addEventListener("click", function csv_to_json() {
                                     alert("Invalid API credentials.");
                                     return false;
                                 }
-                            if (id == "delete") {
-                                alert(`${resp_data.success_count} items deleted.`);
-                            }
-                            else if (id == "import") {
-                                alert(`${resp_data.success_count} items imported.`);
-                            }
+                                cl(resp_data);
+                            // if (id == "delete") {
+                            //     alert(`${resp_data.success_count} items deleted.`);
+                            // }
+                            // else if (id == "import") {
+                            //     alert(`${resp_data.success_count} items imported.`);
+                            // }
                         });
                     });
                     location.reload();
-                }, 2000);
+                }, 5000);
             }
         });
     }
