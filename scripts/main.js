@@ -94,16 +94,13 @@ export_btn.addEventListener("click",
 });
 
 
-//const csv is the CSV file with headers
+//Code to run import/delete for CSV files
 document.addEventListener("click", function csv_to_json() {
     const creds = {};
         creds.api_key = get_id("api_key").value;
         creds.api_secret = get_id("api_secret").value;
     if (event.target.classList.contains("post")) {
         const id = event.target.id;
-    // alert("Nothing yet...");
-    // import_btn.disabled = true;
-    // return false;
         const result = [];
         loaded_file.click();
         loaded_file.addEventListener("change", function load_file() {
@@ -112,12 +109,10 @@ document.addEventListener("click", function csv_to_json() {
                 const reader = new FileReader();
                     reader.onload = function(event) {
                     const csv = event.target.result;
-                        // cl(csv);
                     const lines = csv.split("\n");
                         const test_data = lines[1].split(",");
                         cl(`Line data: ${lines.length}, ${test_data}`);
                     const headers = lines[0].split(",");
-                        // cl(headers);
                     let obj;
                     let current_line;
                 
@@ -129,8 +124,6 @@ document.addEventListener("click", function csv_to_json() {
                         }
                         result.push(obj);
                     }
-                    // console.log(result);
-                    // return result;
                 }
             reader.readAsText(file);
                 setTimeout(function() {
@@ -162,7 +155,7 @@ document.addEventListener("click", function csv_to_json() {
                         });
                     });
                     location.reload();
-                }, 5000);
+                }, 2000);
             }
         });
     }

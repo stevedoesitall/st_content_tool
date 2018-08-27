@@ -22,10 +22,10 @@ app.post("/server", function(req, res) {
     const api_key = req.body.creds.api_key;
     const api_secret = req.body.creds.api_secret;
     const sailthru = require("sailthru-client").createSailthruClient(api_key, api_secret);
+    let success_count = 0;
 
     if (req.body.id == "import") {
         const all_content = req.body.data;
-        let success_count = 0;
         all_content.forEach(content => {
             if (content.tags) {
             content.tags = content.tags.split(",");
@@ -102,7 +102,6 @@ app.post("/server", function(req, res) {
                 }
             });
         });
-        res.send(JSON.stringify({"success_count": success_count}));
     }
     else if (req.body.id == "delete") {
         let success_count = 0;
@@ -121,7 +120,7 @@ app.post("/server", function(req, res) {
                 }
             });
         });
-        res.send(JSON.stringify({"success_count": success_count}));
+        res.send(JSON.stringify({"success_count": 6}));
     }
     else if (req.body.id == "export") {
         const data = [];
@@ -163,4 +162,7 @@ app.post("/server", function(req, res) {
             }
         });
     }
+    setTimeout(function() {
+        res.send(JSON.stringify({"success_count": success_count}));
+    }, 5000);
 });
