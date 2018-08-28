@@ -100,6 +100,16 @@ li {
         font-size: 1.5em;
     }
 
+    h2 {
+        font-size: 1.2em;
+    }
+
+    ol {
+        text-align: left;
+        margin-top: 2em;
+        padding-left: .1em;
+    }
+
     .api {
         display: block;
         margin: auto;
