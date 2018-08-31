@@ -12,16 +12,16 @@
 <body>
     <div id="header">
         <h1>Sailthru Content Tool</h1>
-        <h2>Manage Your Content:</h2>
+        <h2>Export Your Content:</h2>
     </div>
     <div id="inputs">
             <label>API Key: <input name="api_key" type="text" id="api_key"/></label>           
             <label>API Secret: <input name="api_secret" type="text" id="api_secret"/></label>           
     </div>
     <div id="buttons">
-        <button class="post api" id="import">Import</button>
+        <!-- <button class="post api" id="import">Import</button> -->
         <button class="get api" id="export">Export</button>
-        <button class="post api" id="delete">Delete</button>
+        <!-- <button class="post api" id="delete">Delete</button> -->
     </div>
     <div id="warning_section">
         <!--Inject warning if not a valid CSV-->
@@ -30,11 +30,11 @@
         <button id="notes">Notes</button>
         <div class="hidden" id="notes_list">
             <ol>
-                <li>Valid CSV file needed for importing and deleting content</li>
+                <!-- <li>Valid CSV file needed for importing and deleting content</li> -->
                 <li>Exported data includes URL, title, publish date, views, and tags</li>
-                <li>For content imports, replace all commas with pipes (for tags and location) or dashes/hyphens (for titles, descriptions, etc.)</li>
-                <li>To upload thumbnail or full-sized images, name the column headers "thumb" and "full"</li>
-                <li>Import and export of vars currently unsupported</li>
+                <!-- <li>For content imports, replace all commas with pipes (for tags and location) or dashes/hyphens (for titles, descriptions, etc.)</li>
+                <li>To upload thumbnail or full-sized images, name the column headers "thumb" and "full"</li> -->
+                <li>Export of vars currently unsupported</li>
             </ol>
         </div>
     </div>
