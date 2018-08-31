@@ -1,4 +1,4 @@
-import { get_id, headers, cl, date, string } from "https://rawgit.com/stevedoesitall/ditkojs/master/ditko.js";
+import { get_id, headers, cl, create_el, date, string } from "https://rawgit.com/stevedoesitall/ditkojs/master/ditko.js";
 
 //Force the site to load in HTTPS
 function secure() {
@@ -40,7 +40,7 @@ export_btn.addEventListener("click",
                 api_key.setAttribute("class", "error");
                 return false;
             }
-            if (!creds.api_secrey) {
+            if (!creds.api_secret) {
                 alert("Please enter an API secret value.");
                 api_secret.setAttribute("class", "error");
                 return false;
@@ -105,6 +105,16 @@ document.addEventListener("click", function csv_to_json() {
         loaded_file.click();
         loaded_file.addEventListener("change", function load_file() {
         const file = get_id("loaded_file").files[0];
+        const file_name = get_id("loaded_file").files[0].name;
+        const ext = ".csv";
+        const file_ext = file_name.substr(file_name.length - ext.length);
+        if (file_ext != ext) {
+            const p = create_el("p");
+            p.innerHTML = "File must be a valid CSV."
+            const warning_section = get_id("warning_section");
+            warning_section.appendChild(p);
+            return false;
+        }
             if (file) {
                 const reader = new FileReader();
                     reader.onload = function(event) {
