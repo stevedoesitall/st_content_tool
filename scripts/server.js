@@ -157,7 +157,15 @@ app.post("/server", function(req, res) {
                     else {
                         content_data.views = 0;
                     }
-                    data.push({"url":content_data.url,"title":content_data.title, "date":content_data.date,"views":content_data.views,"tags":content_data.tags});
+                    const data_obj = {
+                        "url": content_data.url,
+                        "title": content_data.title, 
+                        "date": content_data.date,
+                        "views": content_data.views,
+                        "tags": content_data.tags
+                    };
+
+                    data.push(data_obj);
                 });
                 res.send(JSON.stringify(data));
             }

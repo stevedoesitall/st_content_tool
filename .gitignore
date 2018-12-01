@@ -1,2 +1,7 @@
+# OS generated files #
+######################
 .DS_Store
-creds.json
+
+# Credentials #
+######################
+scripts/creds.json
