@@ -80,14 +80,14 @@ app.post("/server", function(req, res) {
                         "tags": content_data.tags,
                     };
 
-                    // content_vars.forEach(content_var => {
-                    //     if (content[content_var]) {
-                    //         data_obj[content_var] = content[content_var];
-                    //     }
-                    //     else {
-                    //         data_obj[content_var] = "";
-                    //     }
-                    // });
+                    content_vars.forEach(content_var => {
+                        if (content[content_var]) {
+                            data_obj[content_var] = content[content_var];
+                        }
+                        else {
+                            data_obj[content_var] = "";
+                        }
+                    });
 
                     data.push(data_obj);
                 });
