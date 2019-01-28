@@ -82,7 +82,7 @@ export_btn.addEventListener("click",
             });
             cl(result);
             const csv = 'data:text/csv;charset=utf-8,' + result;
-            const file = encodeURI(csv);
+            const file = encodeURIComponent(csv);
             const file_name = "Content Export " + date + ".csv";
             const hidden_dl = get_id('export_url');
                 hidden_dl.setAttribute("href", file);
