@@ -67,7 +67,7 @@ export_btn.addEventListener("click",
             const keys = Object.keys(resp_data[0]);
 
             let result = "";
-
+ 
             result += keys.join(column_delimiter);
             result += line_delimiter;
 
