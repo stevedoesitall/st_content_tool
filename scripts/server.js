@@ -27,7 +27,7 @@ app.post("/server", function(req, res) {
     if (req.body.id == "export") {
         const data = [];
         const all_content_vars = [];
-        
+
         sailthru.apiGet("content", {
             items: 1000
         },
@@ -39,16 +39,16 @@ app.post("/server", function(req, res) {
             else {
                 const all_content = response.content;
 
-                all_content.forEach(content => {
-                    if (content.vars) {
-                        const content_vars = keys(content.vars);
-                        content_vars.forEach(content_var => {
-                            if (!all_content_vars.includes(content_var)) {
-                                all_content_vars.push(content_var);
-                            }
-                        });
-                    }
-                });
+                // all_content.forEach(content => {
+                //     if (content.vars) {
+                //         const content_vars = keys(content.vars);
+                //         content_vars.forEach(content_var => {
+                //             if (!all_content_vars.includes(content_var)) {
+                //                 all_content_vars.push(content_var);
+                //             }
+                //         });
+                //     }
+                // });
 
                 all_content.forEach(content => {
                     const content_data = {};
