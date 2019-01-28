@@ -26,7 +26,7 @@ app.post("/server", function(req, res) {
 
     if (req.body.id == "export") {
         const data = [];
-        const all_content_vars = [];
+        // const all_content_vars = [];
 
         sailthru.apiGet("content", {
             items: 1000
