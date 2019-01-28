@@ -23,6 +23,7 @@ app.post("/server", function(req, res) {
     const api_secret = req.body.creds.api_secret;
     const sailthru = require("sailthru-client").createSailthruClient(api_key, api_secret);
     let success_count = 0;
+    const all_content_vars = [];
 
     if (req.body.id == "export") {
         const data = [];
@@ -36,6 +37,18 @@ app.post("/server", function(req, res) {
             }
             else {
                 const all_content = response.content;
+
+                all_content.forEach(content => {
+                    if (content.vars) {
+                        const content_vars = keys(content.vars);
+                        content_vars.forEach(content_var => {
+                            if (!all_content_vars.includes(content_var)) {
+                                all_content_vars.push(content_var);
+                            }
+                        });
+                    }
+                });
+
                 all_content.forEach(content => {
                     const content_data = {};
                     content_data.url = content.url;
