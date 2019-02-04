@@ -77,7 +77,7 @@ app.post("/server", function(req, res) {
                             content_data.views = 0;
                         }
                         if (content.expire_date) {
-                            content_data.expire_date = content.expire_date;
+                            content_data.expire_date = content.expire_date.replace(/,/g, " ");
                         }
                         else {
                             content_data.expire_date = "";
