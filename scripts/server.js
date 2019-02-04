@@ -132,6 +132,10 @@ app.post("/server", function(req, res) {
                                 content_data.image_thumb = "";
                             }
                         }
+                        if (content.description) {
+                            content_data.description = content.description.replace(/,/g, " - ");
+                            content_data.description = content.description.replace(/\n/g, "");
+                        }
                         else {
                             content_data.image_full = "";
                             content_data.image_thumb = "";
@@ -145,6 +149,7 @@ app.post("/server", function(req, res) {
                                     }
                                     else if (typeof content_var == "string") {
                                         content_var = content_var.replace(/,/g, " - ");
+                                        content_var = content_var.replace(/\n/g, "");
                                     }
                                     content_data[val] = content_var;
                                 }
