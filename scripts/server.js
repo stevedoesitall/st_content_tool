@@ -78,7 +78,7 @@ app.post("/server", function(req, res) {
                         }
                         if (content.vars) {
                             all_vars_sorted.forEach(val => {
-                                if (content.vars[val]) {
+                                if (content.vars[val] !== null) {
                                     let content_var = content.vars[val];
                                     if (typeof content_var == "object") {
                                         content_var = JSON.stringify(content_var).replace(/,/g, "|");
