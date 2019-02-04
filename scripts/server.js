@@ -76,6 +76,48 @@ app.post("/server", function(req, res) {
                         else {
                             content_data.views = 0;
                         }
+                        if (content.expire_date) {
+                            content_data.expire_date = content.expire_date;
+                        }
+                        else {
+                            content_data.expire_date = "";
+                        }
+                        if (content.location) {
+                            content_data.location = JSON.stringify(content.location).replace(/,/g, "|");
+                        }
+                        else {
+                            content_data.location = "";
+                        }
+                        if (content.author) {
+                            content_data.author = JSON.stringify(content.author).replace(/,/g, "-");
+                        }
+                        else {
+                            content_data.author = "";
+                        }
+                        if (content.price) {
+                            content_data.price = content.price;
+                        }
+                        else {
+                            content_data.price = 0;
+                        }
+                        if (content.sku) {
+                            content_data.sku = content.sku;
+                        }
+                        else {
+                            content_data.sku = "";
+                        }
+                        if (content.inventory) {
+                            content_data.inventory = content.inventory;
+                        }
+                        else {
+                            content_data.inventory = 0;
+                        }
+                        if (content.site_name) {
+                            content_data.site_name = JSON.stringify(content.site_name).replace(/,/g, "-");
+                        }
+                        else {
+                            content_data.site_name = "";
+                        }
                         if (content.vars) {
                             all_vars_sorted.forEach(val => {
                                 if (content.vars[val]) {
