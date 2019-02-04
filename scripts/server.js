@@ -118,6 +118,24 @@ app.post("/server", function(req, res) {
                         else {
                             content_data.site_name = "";
                         }
+                        if (content.images) {
+                            if (content.images.full) {
+                                content_data.image_full = content.images.full.url;
+                            }
+                            else {
+                                content_data.image_full = "";
+                            }
+                            if (content.images.thumb) {
+                                content_data.image_thumb = content.images.thumb.url;
+                            }
+                            else {
+                                content_data.image_thumb = "";
+                            }
+                        }
+                        else {
+                            content_data.image_full = "";
+                            content_data.image_thumb = "";
+                        }
                         if (content.vars) {
                             all_vars_sorted.forEach(val => {
                                 if (content.vars[val]) {
