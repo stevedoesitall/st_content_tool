@@ -44,6 +44,7 @@ app.post("/server", function(req, res) {
                         }
                     });
                 }
+            const all_vars_sorted = all_vars.sort();
             sailthru.apiGet("content", content_obj,
             function(err, response) {
                 if (err) {
