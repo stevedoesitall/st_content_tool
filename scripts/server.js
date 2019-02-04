@@ -78,7 +78,7 @@ app.post("/server", function(req, res) {
                         }
                         if (content.vars) {
                             all_vars_sorted.forEach(val => {
-                                if (content.vars[val] && content.vars[val] !== null) {
+                                if (content.vars[val]) {
                                     let content_var = content.vars[val];
                                     if (typeof content_var == "object") {
                                         content_var = JSON.stringify(content_var).replace(/,/g, "|");
@@ -91,6 +91,11 @@ app.post("/server", function(req, res) {
                                 else {
                                     content_data[val] = "";
                                 }
+                            });
+                        }
+                        else {
+                            all_vars_sorted.forEach(val => {
+                                content_data[val] = "";
                             });
                         }
                         data.push(content_data);
