@@ -79,7 +79,13 @@ app.post("/server", function(req, res) {
                         if (content.vars) {
                             all_vars_sorted.forEach(val => {
                                 if (content.vars[val]) {
-                                    const content_var = content.vars[val];
+                                    let content_var = content.vars[val];
+                                    if (typeof content_var == "object") {
+                                        content_var = JSON.stringify(content_var).replace(/,/g, "|");
+                                    }
+                                    else if (typeof content_var == "string") {
+                                        content_var = content_var.replace(/,/g, " - ");
+                                    }
                                     content_data[val] = content_var;
                                 }
                                 else {
