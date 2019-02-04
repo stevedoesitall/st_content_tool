@@ -133,8 +133,8 @@ app.post("/server", function(req, res) {
                             }
                         }
                         if (content.description) {
-                            content_data.description = content.description.replace(/,/g, " - ");
-                            content_data.description = content.description.replace(/\n/g, "");
+                            let clean_description = content.description.replace(/,/g, " - ");
+                            content_data.description = clean_description.replace(/\n/g, "");
                         }
                         else {
                             content_data.image_full = "";
