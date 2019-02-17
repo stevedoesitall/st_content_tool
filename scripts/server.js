@@ -132,12 +132,16 @@ app.post("/server", function(req, res) {
                                 content_data.image_thumb = "";
                             }
                         }
+                        else {
+                            content_data.image_full = "";
+                            content_data.image_thumb = "";
+                        }
                         if (content.description) {
                             content_data.description= content.description.replace(/,/g, " - ").replace(/\n/g, "").replace(/[^\x00-\x7F]/g, "").replace(/\r/g, "");
                         }
                         else {
-                            content_data.image_full = "";
-                            content_data.image_thumb = "";
+                            content_data.description = "";
+                            content_data.description = "";
                         }
                         if (content.vars) {
                             all_vars_sorted.forEach(val => {
