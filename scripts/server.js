@@ -58,7 +58,7 @@ app.post("/server", function(req, res) {
                         content_data.url = content.url;
                         content_data.date = content.date.replace(/,/g, " ");
                         if (content.title) {
-                            content_data.title = content.title.replace(/,/g, " - ").replace(/[^\x00-\x7F]/g, "");;
+                            content_data.title = content.title.replace(/,/g, " - ").replace(/[^\x00-\x7F]/g, "").replace(/(?:\\[rn])+/g, "");
                             // content_data.title = content.title.replace(/\s\s+/g, " ");
                         }
                         else {
@@ -133,7 +133,7 @@ app.post("/server", function(req, res) {
                             }
                         }
                         if (content.description) {
-                            content_data.description= content.description.replace(/,/g, " - ").replace(/\n/g, "").replace(/[^\x00-\x7F]/g, "");
+                            content_data.description= content.description.replace(/,/g, " - ").replace(/\n/g, "").replace(/[^\x00-\x7F]/g, "").replace(/(?:\\[rn])+/g, "");
                         }
                         else {
                             content_data.image_full = "";
