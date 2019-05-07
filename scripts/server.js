@@ -59,6 +59,7 @@ app.post("/server", function(req, res) {
                         content_data.date = content.date.replace(/,/g, " ");
                         if (content.title) {
                             content_data.title = content.title.replace(/,/g, " - ").replace(/[^\x00-\x7F]/g, "").replace(/(?:\\[rn])+/g, "");
+                            content_data.title = content_data.title.replace(/#/g, "-");
                             // content_data.title = content.title.replace(/\s\s+/g, " ");
                         }
                         else {
