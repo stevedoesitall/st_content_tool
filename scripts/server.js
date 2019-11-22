@@ -173,7 +173,7 @@ app.post("/server", function(req, res) {
             });
         });
     }
-    setTimeout(function() {
-        res.send(JSON.stringify({"success_count": success_count}));
-    }, 5000);
+    // setTimeout(function() {
+    //     res.send(JSON.stringify({"success_count": success_count}));
+    // }, 5000);
 });
