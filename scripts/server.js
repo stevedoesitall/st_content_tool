@@ -154,6 +154,14 @@ app.post("/server", function(req, res) {
                                         content_var = content_var.replace(/,/g, " - ");
                                         content_var = content_var.replace(/\n/g, "");
                                     }
+                                    else if (typeof content_var == "boolean") {
+                                        if (content_var == true) {
+                                            content_var = "true";
+                                        }
+                                        else {
+                                            content_var = "false";
+                                        }
+                                    }
                                     content_data[val] = content_var;
                                 }
                                 else {
